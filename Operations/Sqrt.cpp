@@ -8,12 +8,11 @@ void Sqrt::execute(std::list<std::string> &args, Context &ctx) const {
         throw OutOfParameters();
     }
 
-    double first = ctx.operands.top();
-    ctx.operands.pop();
+    double elem = ctx.readElement();
 
-    if (first < 0) {
+    if (elem < 0) {
         throw NegativeParameter();
     }
 
-    ctx.operands.push(sqrt(first));
+    ctx.operands.push(sqrt(elem));
 }

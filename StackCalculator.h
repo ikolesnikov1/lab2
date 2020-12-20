@@ -2,8 +2,6 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <memory>
-#include "Exceptions/AllExceptions.h"
 #include "Context.h"
 #include "Factory/OperationFactory.h"
 #include "Factory/OperationMaker.h"

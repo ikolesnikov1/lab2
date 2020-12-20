@@ -8,14 +8,11 @@ void Divide::execute(std::list<std::string> &args, Context &ctx) const {
         throw OutOfParameters();
     }
 
-    double first = ctx.operands.top();
-    ctx.operands.pop();
-    double second = ctx.operands.top();
-    ctx.operands.pop();
+    std::pair<double, double> pair = ctx.readTwoElements();
 
-    if (second == 0) {
+    if (pair.second == 0) {
         throw DivisionByZero();
     }
 
-    ctx.operands.push(first / second);
+    ctx.operands.push(pair.first / pair.second);
 }

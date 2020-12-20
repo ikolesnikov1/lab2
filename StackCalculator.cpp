@@ -1,5 +1,8 @@
 #include "StackCalculator.h"
-#include "Reader.h"
+#include <memory>
+
+void splitString(std::list <std::string>&, const std::string&);
+bool readNextString(std::istream& is, std::list <std::string>& args);
 
 double StackCalculator::evaluate(std::istream& is) {
     Context ctx;
@@ -7,7 +10,7 @@ double StackCalculator::evaluate(std::istream& is) {
     int stringCounter = 1;
     std::list <std::string> arguments;
 
-    while (Reader::readNextString(is, arguments)) {
+    while (readNextString(is, arguments)) {
         try {
             char symbol = arguments.front()[0];
             auto comment = [symbol]() -> bool {
@@ -34,7 +37,7 @@ double StackCalculator::evaluate(std::istream& is) {
     return ctx.operands.top();
 }
 
-bool Reader::readNextString(std::istream& is, std::list <std::string> &args) {
+bool readNextString(std::istream& is, std::list <std::string> &args) {
     std::string curString;
     if (!getline(is, curString)) {
         return false;
@@ -44,7 +47,7 @@ bool Reader::readNextString(std::istream& is, std::list <std::string> &args) {
     return true;
 }
 
-void Reader::splitString(std::list<std::string> &args, const std::string& line) {
+void splitString(std::list<std::string> &args, const std::string& line) {
     int delimiter = 0;
     for (int i = 0; i < line.size(); ++i) {
         if (line[i] == ' ' && i > delimiter) {

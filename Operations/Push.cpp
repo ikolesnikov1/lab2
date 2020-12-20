@@ -9,15 +9,13 @@ void Push::execute(std::list<std::string> &args, Context &ctx) const {
     }
 
     std::string id = args.front();
-    auto isNumber = [id]() -> bool {
-        for (char c : id) {
-            if (!isdigit(c)) {
-                return false;
-            }
+    bool isNumber = false;
+    for (char i : id) {
+        if (isdigit(i)) {
+            isNumber = true;
+            break;
         }
-
-        return true;
-    }();
+    }
 
     if (isNumber) {
         ctx.operands.push(atof(id.c_str()));

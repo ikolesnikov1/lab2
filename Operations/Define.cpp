@@ -11,23 +11,21 @@ void Define::execute(std::list<std::string> &args, Context &ctx) const {
     std::string id = args.front();
     std::string numberToDefine = args.back();
 
-    auto wrongId = [id]() -> bool {
-        for (char i : id) {
-            if (!isdigit(i)) {
-                return false;
-            }
+    bool wrongId = false;
+    for (char i : id) {
+        if (isdigit(i)) {
+            wrongId = true;
+            break;
         }
-        return true;
-    }();
+    }
 
-    auto wrongNumber = [numberToDefine]() -> bool {
-        for (char i : numberToDefine) {
-            if (isdigit(i)) {
-                return false;
-            }
+    bool wrongNumber = false;
+    for (char i : numberToDefine) {
+        if (!isdigit(i)) {
+            wrongNumber = true;
+            break;
         }
-        return true;
-    }();
+    }
 
     if (wrongId) {
         throw WrongIdentifier();

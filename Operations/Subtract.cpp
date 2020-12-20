@@ -8,10 +8,6 @@ void Subtract::execute(std::list<std::string>& args, Context & ctx) const {
         throw OutOfParameters();
     }
 
-    int first = ctx.operands.top();
-    ctx.operands.pop();
-    int second = ctx.operands.top();
-    ctx.operands.pop();
-
-    ctx.operands.push(first - second);
+    std::pair<double, double> pair = ctx.readTwoElements();
+    ctx.operands.push(pair.first - pair.second);
 }
