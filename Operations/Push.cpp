@@ -22,8 +22,8 @@ void Push::execute(std::list<std::string> &args, Context &ctx) const {
             ctx.operands.push(stof(number));
         } catch (std::invalid_argument &ex) {
             throw WrongInput();
-            }
-        } else if (ctx.defines.find(number) != ctx.defines.end()) {
+        }
+    } else if (ctx.defines.find(number) != ctx.defines.end()) {
             ctx.operands.push(ctx.defines[number]);
     }
 }

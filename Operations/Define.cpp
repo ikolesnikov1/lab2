@@ -23,19 +23,9 @@ void Define::execute(std::list<std::string> &args, Context &ctx) const {
         throw WrongIdentifier();
     }
 
-    bool wrongNumber = true;
-    for (char i : numberToDefine) {
-        if (!isdigit(i)) {
-            wrongNumber = false;
-            break;
-        }
-    }
-
-    if(wrongNumber) {
-        try {
-            ctx.defines[id] = stof(numberToDefine);
-        } catch (std::invalid_argument &ex) {
-            throw WrongNumber();
-        }
+    try {
+        ctx.defines[id] = stof(numberToDefine);
+    } catch (std::invalid_argument &ex) {
+        throw WrongNumber();
     }
 }
