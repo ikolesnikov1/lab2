@@ -10,5 +10,5 @@ void Print::execute(std::list<std::string> &args, Context &ctx) const {
         throw OutOfParameters();
     }
 
-    std::cout << ctx.operands.top();
+    std::cout << ctx.operands.top() << std::endl;
 }

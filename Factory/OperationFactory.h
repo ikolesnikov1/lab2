@@ -10,5 +10,8 @@ public:
 private:
     OperationFactory() = default;
     std::map<std::string, IOperationMaker *> makers;
+
+    OperationFactory(OperationFactory& other) = delete;
+    void operator=(OperationFactory&) = delete;
 };
 

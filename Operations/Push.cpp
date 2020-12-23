@@ -8,9 +8,9 @@ void Push::execute(std::list<std::string> &args, Context &ctx) const {
         throw WrongInput();
     }
 
-    std::string id = args.front();
+    std::string number = args.front();
     bool isNumber = false;
-    for (char i : id) {
+    for (char i : number) {
         if (isdigit(i)) {
             isNumber = true;
             break;
@@ -18,12 +18,12 @@ void Push::execute(std::list<std::string> &args, Context &ctx) const {
     }
 
     if (isNumber) {
-        ctx.operands.push(atof(id.c_str()));
-        return;
-    } else if (ctx.defines.find(id) != ctx.defines.end()) {
-        ctx.operands.push(ctx.defines[id]);
-        return;
+        try {
+            ctx.operands.push(stof(number));
+        } catch (std::invalid_argument &ex) {
+            throw WrongInput();
+            }
+        } else if (ctx.defines.find(number) != ctx.defines.end()) {
+            ctx.operands.push(ctx.defines[number]);
     }
-
-    throw WrongInput();
 }

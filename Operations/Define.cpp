@@ -11,29 +11,31 @@ void Define::execute(std::list<std::string> &args, Context &ctx) const {
     std::string id = args.front();
     std::string numberToDefine = args.back();
 
-    bool wrongId = false;
+    bool wrongId = true;
     for (char i : id) {
         if (isdigit(i)) {
-            wrongId = true;
+            wrongId = false;
             break;
         }
     }
 
-    bool wrongNumber = false;
-    for (char i : numberToDefine) {
-        if (!isdigit(i)) {
-            wrongNumber = true;
-            break;
-        }
-    }
-
-    if (wrongId) {
+    if (!wrongId) {
         throw WrongIdentifier();
     }
 
-    if (wrongNumber) {
-        throw WrongNumber();
+    bool wrongNumber = true;
+    for (char i : numberToDefine) {
+        if (!isdigit(i)) {
+            wrongNumber = false;
+            break;
+        }
     }
 
-    ctx.defines[id] = atof(numberToDefine.c_str());
+    if(wrongNumber) {
+        try {
+            ctx.defines[id] = stof(numberToDefine);
+        } catch (std::invalid_argument &ex) {
+            throw WrongNumber();
+        }
+    }
 }
